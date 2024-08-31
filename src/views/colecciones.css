@@ -1,0 +1,40 @@
+/* Archivo styles.css */
+
+@media (max-width: 576px) {
+    .img-fluid {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col {
+    display: flex;
+    justify-content: center; /* Alinea las tarjetas en el centro */
+    margin-bottom: 20px;     /* Ajusta el margen inferior si es necesario */
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;  /* Asegura que la tarjeta ocupe toda la altura disponible en la columna */
+  }
+  
+  .card-img-top {
+    object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+    width: 100%;       /* Asegura que la imagen tenga el ancho completo de la tarjeta */
+    height: 200px;     /* Establece una altura fija para todas las imágenes */
+    display: block;    /* Asegura que la imagen se comporte como un bloque */
+  }

@@ -5,6 +5,11 @@ import NotFound from "./views/NotFound";
 import Colecciones from "./views/Colecciones";
 import Contacto from "./views/Contacto";
 
+import Footer from "./components/Footer";
+
+import DetalleColeccion from "./components/DetalleColeccion.jsx";
+import DetalleVestido from "./components/DetalleVestido.jsx";
+
 
 
 const App = () => {
@@ -24,11 +29,20 @@ const App = () => {
           path="/colecciones"
           element={<Colecciones />}
         />
-                <Route
+       <Route 
+          path="/coleccion/:nombre" 
+          element={<DetalleColeccion />} />
+
+        <Route 
+          path="/coleccion/:nombre/vestido/:id" 
+          element={<DetalleVestido />} />
+        
+        <Route
           path="/contacto"
           element={<Contacto />}
         />
       </Routes>
+      <Footer/>
     </>
   );
 };

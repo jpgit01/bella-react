@@ -1,28 +1,190 @@
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 
-const Colecciones = () => {
+function Colecciones() {
+  const [colecciones, setColecciones] = useState([]);
+  const [error, setError] = useState(null);
+  const [selectedColeccion, setSelectedColeccion] = useState(null);
+  const [selectedVestido, setSelectedVestido] = useState(null);
+  const navigate = useNavigate(); // Inicializa useNavigate
 
+  useEffect(() => {
+    fetch('/Colecciones.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setColecciones(data.colecciones || []);
+      })
+      .catch(error => {
+        console.error('Error al cargar las colecciones:', error);
+        setError(error.message);
+      });
+  }, []);
 
+  const handleColeccionClick = (coleccion) => {
+    navigate(`/coleccion/${coleccion.nombre}`); // Cambia la ruta al nombre de la colección
+    setSelectedColeccion(coleccion);
+    setSelectedVestido(null);
+  };
+
+  const handleVestidoClick = (vestido) => {
+    navigate(`/coleccion/${selectedColeccion.nombre}/vestido/${vestido.id}`); // Cambia la ruta al nombre de la colección y el id del vestido
+    setSelectedVestido(vestido);
+  };
+
+  const handleBackClick = () => {
+    setSelectedVestido(null);
+  };
+
+  const handleBackToColeccionesClick = () => {
+    navigate('/'); // Vuelve a la lista de colecciones
+    setSelectedColeccion(null);
+    setSelectedVestido(null);
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (selectedVestido) {
     return (
-        <>
-            <section>
-                <Container fluid>
-                    <h1>Colecciones</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, mollitia doloremque possimus blanditiis odio, voluptas eaque sit quas facilis commodi eos? Perferendis, quam. Voluptate soluta autem incidunt minus quis illum.
-                        Autem, ipsam! Dicta, quo voluptates eligendi, ad necessitatibus odio veritatis quos id esse dolores, harum veniam libero rerum vero est beatae magni commodi consequatur quia ea eius suscipit dolore iure.
-                        Aliquid consectetur assumenda ullam quos libero vitae iure id debitis, eveniet recusandae mollitia quas esse, minima quibusdam nobis eius illo quasi labore dolorem voluptatem corrupti harum consequatur sed! Possimus, obcaecati.
-                        Rerum facere recusandae magni dolor repellendus animi beatae alias omnis quo! Libero unde incidunt corporis dolorum ipsam voluptatum repellat amet adipisci obcaecati dolorem. A neque molestias nostrum inventore veniam labore!
-                        Ea et atque in porro quidem minima quisquam unde dolorum, possimus dolor perferendis harum minus aut iure ipsum necessitatibus molestias! Saepe magni qui omnis veniam consectetur fuga quibusdam iure reprehenderit?
-                        Autem, temporibus corrupti alias, odio corporis asperiores eius nam atque laboriosam ullam dolorum! Ipsam, ipsum. Obcaecati vel sit vero eligendi, aliquid optio! Corporis quis quo voluptatibus eaque blanditiis, quisquam distinctio?
-                        Unde nam consectetur at consequatur animi velit possimus vero ducimus officiis, ratione quidem reiciendis laboriosam corrupti nesciunt fugit, eos quam recusandae? Explicabo quibusdam maxime quasi veniam quas asperiores ullam quae?
-                        Exercitationem autem fugit corporis consequuntur, tempora recusandae nam eligendi. Alias quasi fuga repudiandae laudantium, minus aut corrupti quisquam fugit deleniti laborum ratione delectus nostrum cumque expedita quas, aliquid et officiis.
-                        Inventore, odio voluptatibus! Molestiae aliquid doloremque sint porro ducimus eveniet expedita harum provident consectetur facilis perferendis non doloribus qui nam maiores ex officia recusandae aspernatur, corrupti voluptates. Dicta, suscipit fugit!
-                        Corrupti, sunt tenetur fugit eum ea harum aut quisquam quibusdam officia fuga cum officiis placeat vel, velit maiores, delectus sequi voluptas tempore impedit! Temporibus nam commodi sit aspernatur eveniet nobis?</p>
-                </Container>
-            </section>
-        </>
+      <Container>
+        <Button variant="secondary" onClick={handleBackClick} className="mb-3 mt-3">
+          ← Volver a Vestidos
+        </Button>
+        <Modal show={true} onHide={handleBackClick} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedVestido.nombre}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <img src={selectedVestido.imagen} alt={selectedVestido.nombre} className="img-fluid" />
+            <p>{selectedVestido.descripcion}</p>
+            <p>Precio: ${selectedVestido.precio}</p>
+            <p>Estilos: {selectedVestido.estilos ? selectedVestido.estilos.join(', ') : 'N/A'}</p>
+            <p>Colores: {selectedVestido.colores ? selectedVestido.colores.join(', ') : 'N/A'}</p>
+            <Button
+              variant="link"
+              onClick={() => handleLikeToggle(selectedColeccion?.id, selectedVestido.id)}
+              className="p-0"
+            >
+              {selectedVestido.meGusta ? (
+                <HeartFill size={24} color="red" />
+              ) : (
+                <Heart size={24} color="gray" />
+              )}
+            </Button>
+          </Modal.Body>
+        </Modal>
+        <h1>{selectedColeccion?.nombre}</h1>
+        <p>{selectedColeccion?.descripcion}</p>
+        <h3>Vestidos:</h3>
+        <Row>
+          {selectedColeccion?.vestidos?.map(vestido => (
+            <Col xs={12} md={6} lg={4} key={vestido.id} className="mb-4">
+              <Card>
+                <Card.Img
+                  variant="top"
+                  src={vestido.imagen}
+                  alt={vestido.nombre}
+                  onClick={() => handleVestidoClick(vestido)}
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '200px',
+                    display: 'block',
+                  }}
+                />
+                <Card.Body>
+                  <Card.Title>{vestido.nombre}</Card.Title>
+                  <Card.Text>{vestido.descripcion}</Card.Text>
+                  <Card.Text>Precio: ${vestido.precio}</Card.Text>
+                  <Card.Text>Estilos: {vestido.estilos ? vestido.estilos.join(', ') : 'N/A'}</Card.Text>
+                  <Card.Text>Colores: {vestido.colores ? vestido.colores.join(', ') : 'N/A'}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     );
-};
+  }
+
+  if (selectedColeccion) {
+    return (
+      <Container>
+        <Button variant="secondary" onClick={handleBackToColeccionesClick} className="mb-3 mt-5">
+          ← Volver a Colecciones
+        </Button>
+        <h1>{selectedColeccion.nombre}</h1>
+        <p>{selectedColeccion.descripcion}</p>
+        <h3>Vestidos:</h3>
+        <Row>
+          {selectedColeccion.vestidos.map(vestido => (
+            <Col xs={12} md={6} lg={4} key={vestido.id} className="mb-4">
+              <Card>
+                <Card.Img
+                  variant="top"
+                  src={vestido.imagen}
+                  alt={vestido.nombre}
+                  onClick={() => handleVestidoClick(vestido)}
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '200px',
+                    display: 'block',
+                  }}
+                />
+                <Card.Body>
+                  <Card.Title>{vestido.nombre}</Card.Title>
+                  <Card.Text>{vestido.descripcion}</Card.Text>
+                  <Card.Text>Precio: ${vestido.precio}</Card.Text>
+                  <Card.Text>Estilos: {vestido.estilos ? vestido.estilos.join(', ') : 'N/A'}</Card.Text>
+                  <Card.Text>Colores: {vestido.colores ? vestido.colores.join(', ') : 'N/A'}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <h1>Colecciones y Vestidos</h1>
+      <Row>
+        {colecciones.map(coleccion => (
+          <Col xs={12} md={6} lg={4} key={coleccion.id} className="mb-4">
+            <Card>
+              <Card.Img
+                variant="top"
+                src={coleccion.foto}
+                alt={coleccion.nombre}
+                className="img-fluid"
+                onClick={() => handleColeccionClick(coleccion)}
+                style={{ cursor: 'pointer' }}
+              />
+              <Card.Body>
+                <Card.Title>{coleccion.nombre}</Card.Title>
+                <Card.Text>{coleccion.descripcion}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
+}
+
 export default Colecciones;

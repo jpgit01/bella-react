@@ -1,0 +1,53 @@
+{
+  "colecciones": [
+    {
+      "id": 1,
+      "nombre": "Nuevas Llegadas",
+      "descripcion": "Descubre las últimas adiciones a nuestra colección.",
+      "foto": "https://cdn0.casamientos.com.ar/articles/images/dress/1/2/9/5/t30_m125921.jpg",
+      "vestidos": [
+        {
+          "id": "v1",
+          "nombre": "Vestido Elegante de Seda",
+          "descripcion": "Un vestido de seda con detalles de encaje y una cola fluida.",
+          "precio": 1200,
+          "imagen": "https://asset1.zankyou.com/images/mag-post/36a/cb77/685/-/es/wp-content/uploads/2015/02/4ST049_Tanya_Main.jpg",
+          "estilos": ["seda", "encaje"],
+          "colores": ["blanco", "marfil"],
+          "meGusta": false,
+          "destacado": true
+        },
+        {
+          "id": "v2",
+          "nombre": "Vestido Clásico de Novia",
+          "descripcion": "Un vestido clásico con detalles en perlas y una cola corta.",
+          "precio": 1000,
+          "imagen": "https://cdn0.matrimonio.com.pe/articles/images/dress/7/3/1/4/t30_m154137.jpg",
+          "estilos": ["clásico"],
+          "colores": ["blanco"],
+          "meGusta": false,
+          "destacado": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Colección Primavera",
+      "descripcion": "Vestidos frescos y ligeros para la temporada de primavera.",
+      "foto": "https://1.bp.blogspot.com/-Sqzux9XgooE/WZ22qxbf5NI/AAAAAAACu7Y/6KJn5yyjMbgf99CoWlLjM4TSBKt2ZiXewCLcBGAs/s1600/vestidos-de-15-a%25C3%25B1os-rosados%2B5.jpg",
+      "vestidos": [
+        {
+          "id": "v3",
+          "nombre": "Vestido Floral",
+          "descripcion": "Un vestido floral ideal para eventos primaverales.",
+          "precio": 950,
+          "imagen": "https://1.bp.blogspot.com/-Sqzux9XgooE/WZ22qxbf5NI/AAAAAAACu7Y/6KJn5yyjMbgf99CoWlLjM4TSBKt2ZiXewCLcBGAs/s1600/vestidos-de-15-a%25C3%25B1os-rosados%2B5.jpg",
+          "estilos": ["floral"],
+          "colores": ["rosa", "verde"],
+          "meGusta": false,
+          "destacado": false
+        }
+      ]
+    }
+  ]
+}

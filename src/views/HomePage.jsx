@@ -4,30 +4,62 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { AwardFill } from 'react-bootstrap-icons'
+import { BagHeart } from 'react-bootstrap-icons'
+import { Bell } from 'react-bootstrap-icons'
+import { Box2Fill } from 'react-bootstrap-icons'
+
+import Destacado from "../components/Destacado";
+
 const HomePage = () => {
+
     return (
         <>
             <MyCarousel />
             <section>
-                <Container fluid>
+                <Container>
+                    <Row className="text-center mt-5 mb-5">
+                        <Col>
+                            <AwardFill size={80} className='p-3' />
+                            <p>Elegancia Única: Vestidos sofisticados y de calidad. Siéntete como una reina.</p>
+                        </Col>
+                        <Col>
+                            <BagHeart size={80} className='p-3' />
+                            <p>Atención Personalizada: Asesoría para encontrar tu estilo. Tu satisfacción es clave.</p>
+                        </Col>
+                        <Col>
+                            <Bell size={80} className='p-3' />
+                            <p>Avisos Exclusivos: Notificaciones sobre ofertas y eventos. No te pierdas nuestras sorpresas.</p>
+                        </Col>
+                        <Col>
+                            <Box2Fill size={80} className='p-3' />
+                            <p>Entrega Puntual: Llegada a tiempo y bien empaquetada. Tu tranquilidad es nuestra meta.</p>
+                        </Col>
+                    </Row>
+                </Container>
+
+
+            </section>
+            <section>
+                <Container fluid className="bg-dark text-white ">
+                    <Row className="pt-4 pb-3">
+                        <Col className="mt-5 text-center mb-5"><h1>Casa de Novias Bella Isabella</h1></Col>
+                        <Col>
+                            <p>Donde cada vestido de novia es una obra de arte diseñada para realzar tu belleza y hacer de tu día especial un momento inolvidable. En nuestra tienda, combinamos elegancia y sofisticación para ofrecerte una experiencia de compra única, con atención personalizada y diseños exclusivos que reflejan tu estilo único. Permítenos ser parte de tu historia y ayudarte a encontrar el vestido perfecto que hará que tu boda sea verdaderamente mágica. ¡En Bella Isabella, tu sueño se convierte en realidad!</p>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container className="mb-5">
                     <Row>
-                        <Col className="mt-5 text-center mb-5"><h1>Home Page</h1></Col>
+                        <h3 className="mt-5 text-center">Productos destacados</h3>
                     </Row>
                     <Row>
-                        <Col><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit magnam quasi eligendi vitae incidunt suscipit commodi ducimus rerum maiores? Temporibus ea vitae eaque adipisci commodi excepturi eos magni, quibusdam repellendus.
-                            Nisi corporis, iusto aperiam exercitationem recusandae eius impedit? Ducimus, assumenda! Repudiandae aliquam commodi dicta, id provident necessitatibus iusto accusamus, at voluptas autem corrupti animi quas labore praesentium soluta beatae vero.
-                            Voluptates cum veritatis saepe quasi ratione, quo numquam? Doloribus ipsa error voluptate exercitationem ut ea culpa odit. Inventore culpa eligendi sapiente non, consectetur rerum, eum aspernatur modi debitis minus hic.
-                            Fugiat, in impedit excepturi facilis consequatur modi aut tenetur, neque temporibus perferendis sit ipsa qui, quas non optio praesentium ducimus numquam libero ipsum magni natus quos. Iusto ullam aliquid minus.
-                            Voluptas, aut et maiores magnam, culpa facere nam repudiandae similique labore assumenda eos nemo aliquam, iure hic cumque ut voluptatibus corrupti? Aut beatae fuga, delectus corrupti ducimus repudiandae quidem maiores.
-                            Ipsa soluta ducimus quam, tempore in itaque necessitatibus, dolor nesciunt perspiciatis alias, rerum voluptate aliquam odio accusantium asperiores eum illo. Ducimus ullam excepturi ab obcaecati minima! Temporibus quae aliquid excepturi!
-                            Facilis eveniet iusto, labore commodi illo iure id consectetur nesciunt dolorem laudantium perspiciatis eligendi rerum expedita fugiat, fuga mollitia harum consequatur voluptatibus dolore ipsum quia eaque itaque saepe magni. Ad.
-                            Minus, atque doloribus corrupti repudiandae aperiam nostrum fugiat, ipsum ex corporis necessitatibus velit! Deserunt aperiam voluptate ea repudiandae, totam odio, dolorem nisi quo officiis animi nesciunt doloribus! Voluptas, blanditiis mollitia?
-                            Eligendi nam nihil doloribus delectus, eaque debitis fugit enim modi accusantium mollitia incidunt esse eius quas earum, asperiores, cupiditate ratione blanditiis. Tenetur architecto similique repudiandae ratione natus animi laboriosam commodi!
-                            Doloremque, porro tempora amet dolorem culpa nobis quis voluptatibus atque corporis cupiditate assumenda. Itaque accusantium quasi ut error numquam iure aliquam eum, reiciendis, autem aliquid odit eius. Dolorem, dicta ab.</p></Col>
+                        <Destacado />
                     </Row>
                 </Container>
             </section>
         </>
     );
 };
+
 export default HomePage;
